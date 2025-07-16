@@ -3,7 +3,9 @@
 
 import os
 import json
-from speech_api import SuperSpeech
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from src.speech_api import SuperSpeech
 
 # Create a SuperSpeech instance with default API keys
 # You can also provide your own keys: SuperSpeech(app_key="your_key", secret_key="your_secret")
@@ -13,7 +15,7 @@ def evaluate_word():
     """Example of evaluating a single word pronunciation"""
     
     # Audio file path - adjust as needed
-    audio_path = os.path.join("..", "audio_samples", "supermarket.wav")
+    audio_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "audio_samples", "supermarket.wav")
     
     # Reference text for the audio
     ref_text = "supermarket"

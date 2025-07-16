@@ -108,7 +108,16 @@ class SuperSpeech:
             with open(audio_path, 'rb') as audio_file:
                 files = {"audio": audio_file}
                 response = requests.post(url, data=data, headers=headers, files=files)
-                return json.loads(response.text)
+                
+                print(f"Response status code: {response.status_code}")
+                print(f"Response text: {response.text}")
+                
+                if response.text.strip():
+                    return json.loads(response.text)
+                else:
+                    return {"error": f"Empty response from API. Status code: {response.status_code}"}
+        except json.JSONDecodeError as e:
+            return {"error": f"JSON decode error: {str(e)}. Raw response: {response.text}"}
         except Exception as e:
             return {"error": str(e)}
     
