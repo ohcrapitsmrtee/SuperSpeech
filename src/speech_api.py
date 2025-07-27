@@ -22,8 +22,8 @@ class SuperSpeech:
         self.user_id = "guest"
     
     def _generate_timestamp(self):
-        """Generate current timestamp for API requests."""
-        return str(int(time.time()))
+        """Generate current timestamp for API requests (in milliseconds to match WebSocket)."""
+        return str(int(time.time() * 1000))
     
     def _generate_signatures(self, timestamp):
         """Generate required signatures for API authentication.
