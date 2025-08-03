@@ -7,17 +7,25 @@ import hashlib
 import requests
 import json
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 class SuperSpeech:
-    def __init__(self, app_key="175152606100052e", secret_key="8f2d6a0d1d09c1ed9327adb82bd93939"):
+    def __init__(self, app_key=None, secret_key=None):
         """Initialize SuperSpeech with your API credentials.
         
         Args:
-            app_key (str): Your SpeechSuper application key
-            secret_key (str): Your SpeechSuper secret key
+            app_key (str): Your SpeechSuper application key (optional, defaults to environment variable)
+            secret_key (str): Your SpeechSuper secret key (optional, defaults to environment variable)
         """
-        self.app_key = app_key
-        self.secret_key = secret_key
+        self.app_key = app_key or os.getenv('SPEECHSUPER_APP_KEY')
+        self.secret_key = secret_key or os.getenv('SPEECHSUPER_SECRET_KEY')
+        
+        if not self.app_key or not self.secret_key:
+            raise ValueError("API credentials not found. Please set SPEECHSUPER_APP_KEY and SPEECHSUPER_SECRET_KEY environment variables or create a .env file.")
+        
         self.base_url = "https://api.speechsuper.com/"
         self.user_id = "guest"
     

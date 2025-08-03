@@ -1,8 +1,23 @@
-# SuperSpeech
+# SuperSpeech Korean Pronunciation Tester
 
-A modern Python library for speech evaluation and assessment using the SpeechSuper API.
+A Python application for Korean pronunciation assessment using the SpeechSuper API. This tool provides real-time pronunciation scoring for both individual Korean words and sentences.
 
 ## Features
+
+- 🎤 **Audio Recording**: Built-in microphone recording with 16kHz quality
+- 🇰🇷 **Korean Language Support**: Automatic Korean-to-romanized text conversion
+- 📊 **Detailed Scoring**: Comprehensive pronunciation analysis including:
+  - Overall pronunciation score
+  - Pronunciation accuracy
+  - Fluency assessment
+  - Rhythm analysis
+  - Speech integrity
+  - Words-per-minute calculation
+- 🔄 **Dual API Support**: 
+  - Single words: `word.eval.kr`
+  - Sentences/phrases: `sent.eval.kr`
+- 🎵 **Audio Playback**: Review your recordings before evaluation
+- 🔒 **Secure Configuration**: API keys stored in environment variables
 
 - **Word Pronunciation Assessment**: Evaluate pronunciation at the word level with detailed phonetic analysis
 - **Sentence Evaluation**: Assess fluency, stress patterns, and intonation in full sentences

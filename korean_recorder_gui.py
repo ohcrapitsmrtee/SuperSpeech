@@ -43,8 +43,8 @@ class KoreanRecorderApp:
         self.word_entry.pack(pady=5)
         
         # Example label
-        ttk.Label(self.root, text="Example: 남자 (namja) or 안녕 (annyeong) - Single words only!", font=('Arial', 8)).pack(pady=2)
-        ttk.Label(self.root, text="Using Korean-specific API (word.eval.kr) - Audio limit: 20 seconds", font=('Arial', 7), foreground='blue').pack(pady=1)
+        ttk.Label(self.root, text="Example: 남자 (namja), 안녕하세요 (annyeonghaseyo), or 남자 커요 (namja keoyo)", font=('Arial', 8)).pack(pady=2)
+        ttk.Label(self.root, text="Korean API: Words (word.eval.kr) or Sentences (sent.eval.kr) - Audio limit: 90 seconds", font=('Arial', 7), foreground='blue').pack(pady=1)
         
         # Record button
         self.record_button = ttk.Button(
@@ -163,22 +163,16 @@ class KoreanRecorderApp:
             
             # Check if it's a single word or multiple words
             word_count = len(romanized_word.split())
+            print(f"DEBUG: Word count: {word_count}")
+            
             if word_count == 1:
-                # Single word - try Korean-specific word evaluation endpoints
-                core_types_to_try = ["word.eval.kr", "word.eval.promax", "word.eval"]
-                print(f"DEBUG: Using single word evaluation with Korean-specific core types")
+                # Single word - use Korean-specific word evaluation endpoint
+                core_types_to_try = ["word.eval.kr"]
+                print(f"DEBUG: Using single word evaluation with Korean word.eval.kr")
             else:
-                # Multiple words - inform user of limitation
-                self.result_label.config(text=f"⚠️ Multi-word evaluation not available\n\n"
-                                              f"Your API account supports Korean single word evaluation only.\n"
-                                              f"Using core type: word.eval.kr (Audio limit: 20 seconds)\n\n"
-                                              f"Please try individual words like:\n"
-                                              f"• 남자 (namja)\n"
-                                              f"• 커요 (keoyo)\n"
-                                              f"• 사과 (sagwa)\n\n"
-                                              f"You entered: '{korean_word}' → '{romanized_word}' ({word_count} words)")
-                self.status_label.config(text="Ready")
-                return
+                # Multiple words - use Korean sentence evaluation endpoint (newly granted access)
+                core_types_to_try = ["sent.eval.kr"]
+                print(f"DEBUG: Using sentence evaluation with Korean sent.eval.kr (newly granted access)")
             
             result = None
             for core_type in core_types_to_try:
